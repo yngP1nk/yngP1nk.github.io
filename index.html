@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Резюме</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <h1>Моё резюме</h1>
+    
+    <div class="section">
+        <h2>Личные данные</h2>
+        <div class="personal-info">
+            <div class="photo">
+                <img src="photo.jpg" alt="Моя фотография">
+            </div>
+            <div class="details">
+                <p>Имя: Басманов Михаил Владимирович</p>
+                <p>Дата рождения: 21.11.2001</p>
+                <p>Адрес: Москва, Россия</p>
+                <p>Телефон: +7 999 406 45 67</p>
+                <p>Email: mbasmanov2001@gmail.com</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>Образование</h2>
+        <p>Университет: МГТУ "СТАНКИН"</p>
+        <p>Специализация: Мехатроника и робототехника</p>
+    </div>
+    
+    <div class="section">
+        <h2>Опыт работы</h2>
+        <p>Компания: ооо.fenrir</p>
+        <p>Должность: помошник перотехника</p>
+        <p>Период работы: 08.09.2019 - 07.07.2021</p>
+        <p>Описание:
+            <ul>
+                <li>перотехнические работы </li>
+                <li>участие в развитии городских мероприятий</li>
+                <li>повышение осведомлёности о технике безопасности</li>
+                <li>улутшение социальных навыков</li>
+            </ul>
+        </p>
+    </div>
+    
+    <div class="section">
+        <h2>Навыки</h2>
+        <p>начальные перотехнические :работа с реквезитом не несущим сильных рисков</p>
+        <p>начальные навыки воксельной графики</p>
+        <p>знание синтаксиса С++ и Python</p>
+        <p>начальные навыки компьютерной графики Tflex,Solidworks</p>
+        <p>Владение инструментами разработки: Git</p>
+        <p>Английский язык: свободное владение</p>
+    </div>
+
+    <div class="section">
+        <h2>Дополнительная информация</h2>
+        <p>помощь в разработке нескольких инди игр</p>
+        <p>Интересы: искусственный интеллект, фаер шоу, гейм дев, пиксельная воксельная графика.</p>
+    </div>
+
+
+        <title>Автообновление каждые 60 секунд</title>
+        <script>
+                function autoRefresh() {
+                  myFunction();
+            setTimeout(autoRefresh, 60000);
+          }
+
+          function sleep(ms) {
+            return new Promise((resolve) => setTimeout(resolve, ms));
+          }
+
+          function myFunction() {
+            (async () => {
+              let response = await fetch(
+                "https://kav-api.kovalev.team/servodrive/lastActualData?servoDriveId=1"
+              );
+              let el = document.getElementById("demo");
+              el.innerHTML = "";
+              let text = await response.text();
+              for (const [key, value] of Object.entries(JSON.parse(text)[0])) {
+                const newEl = document.createElement("li");
+                newEl.appendChild(
+                  document.createTextNode(`${key}: ${value}`)
+                );
+                el.appendChild(newEl);
+                await sleep(100);
+              }
+            })();
+          }
+
+              window.onload = function () {
+            autoRefresh();
+          };
+        </script>
+
+
+    <div class="section">
+          <h2>Даннные со станка</h2>
+          <button class="btn" onclick="myFunction()">Тык</button>
+          <ul id="demo"></ul>
+    </div>
+</body>
+</html>
